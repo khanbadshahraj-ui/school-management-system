@@ -13,7 +13,7 @@ GitHub Actions: https://github.com/khanbadshahraj-ui/school-management-system/ac
 - After removing/replacing the entire app container, the same authenticated session, school name and logo persisted; bootstrap did not overwrite school data.
 - Container job 118278649473 completed successfully; both initial and replacement phases reported success.
 - Neon school_demo owner connection verified against PostgreSQL 18.6 using the connector. No school data schema has yet been deployed there.
-- Render free-service creation was rejected with HTTP 402 requiring payment information. Service listing remained empty. Actual Render URL, provider persistence and sleep/wake verification remain blocked. CI replacement tests are not live-provider tests.
+- Render free-service creation was rejected with HTTP 402 requiring payment information. Service listing remained empty. The dashboard was also tested with Free selected and opened an Add Card dialog; no details were entered and subsequent service listing remained empty. Actual Render URL, provider persistence and sleep/wake verification remain blocked. CI replacement tests are not live-provider tests.
 - Browser/physical-device checks, backup restoration and load tests are not performed.
 
 ## Historical foundation

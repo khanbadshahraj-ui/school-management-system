@@ -3,7 +3,7 @@
 | Resource | Verified state |
 |---|---|
 | GitHub | Repository read/write and PR/CI access verified |
-| Render | My Workspace, tea-dbb7a6e7bikc73erhk6g, accessible; no services found; explicit free Docker creation rejected with HTTP 402 requiring payment information; no service created |
+| Render | My Workspace, tea-dbb7a6e7bikc73erhk6g, accessible; no services found; explicit Free Docker creation rejected by API (HTTP 402) and dashboard (Add Card dialog after Free selection); no card entered or service created |
 | Neon | Free organization org-twilight-dew-36499694 verified; isolated branch br-purple-water-b71ljlvd and school_demo database created; database owner connection verified |
 | Neon account restriction | Vercel-managed organization blocks separate project creation and custom suspend intervals; supported branch/database creation succeeded |
 | Runtime secrets | Generated privately; not committed or displayed in logs; Render creation failed before a service was created; preserve the same key when resuming |

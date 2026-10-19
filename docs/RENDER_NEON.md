@@ -41,4 +41,4 @@ The owner must personally confirm sign-in and school-admin permissions. Verify b
 
 ## Observed account blocker
 
-The tested Docker candidate passed CI run 39316324172. An explicit Render Free Docker creation request on 2026-10-19 UTC returned HTTP 402 requiring payment information. No Render service was created. Dashboard creation without a card is not yet verified for this account. Do not add a card, select a paid plan or describe the app as deployed. The prepared source and free Neon branch/database remain available for continuation.
+The tested Docker candidate passed CI run 39316324172. An explicit Render Free Docker creation request on 2026-10-19 UTC returned HTTP 402 requiring payment information. No Render service was created. Dashboard creation was also tested with Free explicitly selected and opened an Add Card dialog. No card was entered and no service was created. The no-card path is blocked for this account. Do not add a card, select a paid plan or describe the app as deployed. The prepared source and free Neon branch/database remain available for continuation.
