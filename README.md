@@ -20,7 +20,7 @@ PHP 8.3+ with PDO PostgreSQL, Composer, Node 24, PostgreSQL 16 and Redis 7. Use 
 ## Verification
 `npm run build` checks TypeScript and compiles assets. `php artisan test` requires an isolated PostgreSQL database named school_test. Never run RefreshDatabase tests against production.
 
-The CI workflow provisions PostgreSQL and Redis on an external runner. It has not been executed remotely. The Procfile is a deployment candidate, not evidence of Heroku deployment. Read PROJECT_STATUS.md before relying on any claimed behavior.
+The CI workflow provisions PostgreSQL and Redis on an external runner. Run 39304069672 passed all 10 tests (19 assertions), the frontend build, and dependency audits. The Procfile is a deployment candidate, not evidence of Heroku deployment. Read PROJECT_STATUS.md before relying on any claimed behavior.
 
 ## Known limitations
-No MFA, logo uploads, fine-grained role editor, guardian linkage, complete academic setup, timetable, attendance, results, fee ledger, payroll, library, transport, hostel, inventory, exports or live provider integrations yet. Urdu layout direction is implemented; translations are not. Browser and database integration checks are pending. Application must not be used with real school data before security and workflow acceptance tests.
+No MFA, logo uploads, fine-grained role editor, guardian linkage, complete academic setup, timetable, attendance, results, fee ledger, payroll, library, transport, hostel, inventory, exports or live provider integrations yet. Urdu layout direction is implemented; translations are not. Browser checks and broader module integration checks are pending. Application must not be used with real school data before security and workflow acceptance tests.

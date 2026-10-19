@@ -3,10 +3,10 @@
 | Requirement | Status | Evidence |
 |---|---|---|
 | Authentication and privileged MFA | Login/logout implemented; MFA pending | Login renders; database login verification pending |
-| Tenant isolation and role permissions | Initial code and constraints; integration tests blocked | 2 context tests pass; PostgreSQL unavailable |
-| School branding and academic configuration | Name/colors/region and campus/department foundation; remainder pending | Build passes; database workflows unverified |
+| Tenant isolation and role permissions | Initial roles, queries and constraints verified; full permissions editor pending | PostgreSQL isolation and cross-school constraint tests pass in GitHub Actions |
+| School branding and academic configuration | Name/colors/region and campus/department foundation; remainder pending | Build passes; teacher settings denial verified; complete configuration coverage pending |
 | Admissions and enrollment | Not implemented | None |
-| Student and guardian records | Initial student enrollment/list/search; guardian relationships pending | Database checks blocked |
+| Student and guardian records | Initial student enrollment/list/search; guardian relationships pending | Enrollment and audit persistence verified in PostgreSQL CI |
 | Timetables and conflict detection | Not implemented | None |
 | Student and staff attendance | Not implemented | None |
 | Assignments and learning resources | Not implemented | None |
