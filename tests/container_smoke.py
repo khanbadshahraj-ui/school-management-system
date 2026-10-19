@@ -1,5 +1,4 @@
 """Exercise the actual production image through a simulated TLS-terminating proxy."""
-import base64
 import http.cookiejar
 import json
 import sys
@@ -10,7 +9,12 @@ import urllib.request
 
 base = "http://127.0.0.1:10000"
 jar = http.cookiejar.CookieJar()
-client = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+client = urllib.request.build_opener(NoRedirect(), urllib.request.HTTPCookieProcessor(jar))
 
 
 def request(path, data=None, inertia=False):
@@ -26,7 +30,12 @@ def request(path, data=None, inertia=False):
         data = urllib.parse.urlencode(data).encode()
     if inertia:
         headers["X-Inertia"] = "true"
-    return client.open(urllib.request.Request(base + path, data=data, headers=headers), timeout=15)
+    try:
+        return client.open(urllib.request.Request(base + path, data=data, headers=headers), timeout=15)
+    except urllib.error.HTTPError as error:
+        if error.code in (302, 303):
+            return error
+        raise
 
 
 for attempt in range(90):

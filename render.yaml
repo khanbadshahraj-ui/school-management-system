@@ -3,7 +3,7 @@ services:
     name: school-management-demo
     runtime: docker
     plan: free
-    region: frankfurt
+    region: virginia
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /up

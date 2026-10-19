@@ -17,7 +17,7 @@ class SchoolLogoTest extends TestCase
     {
         $school = School::create(['name' => $slug, 'slug' => $slug]);
 
-        return User::factory()->create(['school_id' => $school->id, 'role' => $role]);
+        return User::factory()->create(['school_id' => $school->id, 'role' => $role, 'is_active' => true]);
     }
 
     private function image(): string
@@ -54,6 +54,6 @@ class SchoolLogoTest extends TestCase
     {
         $owner = $this->owner('alpha');
         $this->actingAs($owner)->post('/school/logo', ['logo' => UploadedFile::fake()->createWithContent('logo.svg', '<svg xmlns="http://www.w3.org/2000/svg"/>')])->assertSessionHasErrors('logo');
-        $this->assertDatabaseCount('school_logos',0);
+        $this->assertDatabaseCount('school_logos', 0);
     }
 }
