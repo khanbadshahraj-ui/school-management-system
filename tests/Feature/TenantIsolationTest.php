@@ -27,6 +27,7 @@ class TenantIsolationTest extends TestCase
         $user = new User;
         $user->forceFill(['name' => 'A Admin', 'email' => 'a@example.test', 'password' => 'a-long-testing-password', 'school_id' => $a->id, 'role' => 'school_admin']);
         $user->save();
+        $user->refresh();
         $this->actingAs($user)->get('/students')->assertOk()->assertDontSee('Private');
         $this->actingAs($user)->post('/students', ['campus_id' => $campusB->id, 'admission_number' => 'A1', 'first_name' => 'Attempt', 'last_name' => 'Cross-school'])->assertSessionHasErrors('campus_id');
     }
