@@ -1,26 +1,30 @@
 # School Management System
 
-AI Driven School Management System
+Configurable Laravel 13 / PHP 8.3, React 19, TypeScript and PostgreSQL school-management foundation.
 
-## Foundation checkpoint
+## Free demo deployment
 
-This is an incomplete implementation, not a finished or deployed school system. The source currently implements login, tenant-scoped student enrollment, school identity/color/regional settings, campuses, departments and dashboard counts. No production URL exists.
+The active target is **Render Free Docker + Neon Free PostgreSQL**, served from one HTTPS origin. Start with [the deployment runbook](docs/RENDER_NEON.md). `render.yaml`, `Dockerfile`, `.env.demo.example` and startup validation define the deployable demo. Heroku configuration is retained only as an optional future migration path.
 
-## Local prerequisites
-PHP 8.3+ with PDO PostgreSQL, Composer, Node 24, PostgreSQL 16 and Redis 7. Use durable private S3-compatible storage when file workflows are implemented.
+The demo uses PostgreSQL sessions/cache, synchronous lightweight jobs, and small authenticated PNG/JPEG school logos stored in PostgreSQL. No Redis, paid worker, disk, object bucket, scheduler or paid integration is required. Documents, outbound messages, live payments and large exports remain disabled. Render may sleep; the database can also sleep. This is a fictional-data demonstration, not an always-on production service.
 
-## Setup
-1. Run `composer install` and `npm ci`.
-2. Copy `.env.example` to `.env`; configure your own PostgreSQL and Redis connection. Keep `.env` private.
-3. Run `php artisan key:generate` once for a new environment.
-4. Run `php artisan migrate` against that environment.
-5. Run `php artisan school:bootstrap owner@example.org --name="Your School" --slug=your-school` in a protected interactive terminal. It prompts privately for a password.
-6. Run `npm run build` then `php artisan serve` for development.
+## Implemented workflows
+
+Sign-in/logout, tenant isolation, school name/color/regional settings, school logo, campuses, departments, student enrollment/list/search and dashboard counts. Sensitive settings/enrollment/logo changes are audited. Demo owner bootstrap is repeatable and preserves existing passwords and records.
+
+## Local development
+
+1. Install PHP 8.3 with PDO PostgreSQL, Composer and Node 24; provide a dedicated local PostgreSQL database.
+2. Run `composer install` and `npm ci`.
+3. Copy `.env.example` to `.env` and set local database credentials. For a local non-TLS database only, set `DB_SSLMODE=disable`. Use `SESSION_DRIVER=database`, `CACHE_STORE=database`, `QUEUE_CONNECTION=sync` for development without Redis.
+4. Run `php artisan key:generate` once, then `php artisan migrate`.
+5. Run `php artisan school:bootstrap owner@example.org --name="Your School" --slug=your-school` in a private terminal; enter a strong password when prompted.
+6. Run `npm run build` then `php artisan serve`.
 
 ## Verification
-`npm run build` checks TypeScript and compiles assets. `php artisan test` requires an isolated PostgreSQL database named school_test. Never run RefreshDatabase tests against production.
 
-The CI workflow provisions PostgreSQL and Redis on an external runner. Run 39304069672 passed all 10 tests (19 assertions), the frontend build, and dependency audits. The Procfile is a deployment candidate, not evidence of Heroku deployment. Read PROJECT_STATUS.md before relying on any claimed behavior.
+`npm run build` checks TypeScript and builds production assets. `php artisan test` requires an isolated PostgreSQL database named `school_test`; never point tests at the deployed demo. CI runs PostgreSQL integration tests, dependency audits and the exact Docker image with TLS PostgreSQL and container replacement checks. See TEST_EVIDENCE.md for completed results; workflow definitions alone are not evidence of passing tests.
 
-## Known limitations
-No MFA, logo uploads, fine-grained role editor, guardian linkage, complete academic setup, timetable, attendance, results, fee ledger, payroll, library, transport, hostel, inventory, exports or live provider integrations yet. Urdu layout direction is implemented; translations are not. Browser checks and broader module integration checks are pending. Application must not be used with real school data before security and workflow acceptance tests.
+## Remaining scope
+
+This is an incomplete school-management foundation. MFA, detailed configurable permissions, guardians, academic setup, timetables, attendance, assignments, examinations, finance, payroll, library, transport, hostel, inventory, exports and provider integrations remain to be built. Urdu direction is supported; full translation, browser/device acceptance, backup restoration and capacity testing remain pending. Do not use real student data.

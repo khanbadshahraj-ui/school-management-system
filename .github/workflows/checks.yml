@@ -24,6 +24,7 @@ jobs:
         ports: [6379:6379]
     env:
       APP_ENV: testing
+      DB_SSLMODE: disable
       DB_CONNECTION: pgsql
       DB_HOST: 127.0.0.1
       DB_DATABASE: school_test
@@ -48,3 +49,32 @@ jobs:
       - run: php artisan test
       - run: composer audit
       - run: npm audit --omit=dev
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build exact deployment image
+        run: docker build -t school-demo:ci .
+      - name: Prepare TLS PostgreSQL and production environment
+        run: |
+          mkdir -p /tmp/school-tls
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 -keyout /tmp/school-tls/server.key -out /tmp/school-tls/server.crt -subj /CN=postgres
+          docker network create school-ci
+          docker run -d --name postgres --network school-ci -e POSTGRES_USER=school -e POSTGRES_PASSWORD=ci-only-password -e POSTGRES_DB=school_demo -v /tmp/school-tls:/tls postgres:16 bash -c 'chown postgres:postgres /tls/* && chmod 600 /tls/server.key && exec docker-entrypoint.sh postgres -c ssl=on -c ssl_cert_file=/tls/server.crt -c ssl_key_file=/tls/server.key'
+          for attempt in $(seq 1 30); do
+            if docker exec postgres pg_isready -U school -d school_demo; then break; fi
+            sleep 2
+          done
+          docker exec postgres pg_isready -U school -d school_demo
+          python3 tests/container_environment.py
+      - name: Boot image, verify login and database persistence across replacement
+        run: |
+          docker run -d --name school-app --network school-ci --env-file /tmp/school-ci.env -p 10000:10000 school-demo:ci
+          python3 tests/container_smoke.py initial
+          docker rm -f school-app
+          docker run -d --name school-app --network school-ci --env-file /tmp/school-ci.env -p 10000:10000 school-demo:ci
+          python3 tests/container_smoke.py replacement
+      - name: Startup diagnostics
+        if: failure()
+        run: docker logs school-app
