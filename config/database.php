@@ -96,7 +96,24 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => env('DB_SSLMODE', 'prefer'),
+            'sslmode' => env('DB_SSLMODE', 'require'),
+            'options' => [PDO::ATTR_TIMEOUT => 10, PDO::ATTR_EMULATE_PREPARES => true, PDO::ATTR_PERSISTENT => false],
+        ],
+
+        'pgsql_direct' => [
+            'driver' => 'pgsql',
+            'url' => env('MIGRATION_DATABASE_URL'),
+            'host' => env('DB_DIRECT_HOST', env('DB_HOST', '127.0.0.1')),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'school'),
+            'username' => env('DB_USERNAME', 'school'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'search_path' => 'public',
+            'sslmode' => env('DB_SSLMODE', 'require'),
+            'options' => [PDO::ATTR_TIMEOUT => 10, PDO::ATTR_PERSISTENT => false],
+            'server_options' => ['statement_timeout' => '60000', 'lock_timeout' => '15000'],
         ],
 
         'sqlsrv' => [

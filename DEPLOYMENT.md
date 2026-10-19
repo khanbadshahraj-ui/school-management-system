@@ -1,23 +1,11 @@
-# Deployment plan — not yet executed
+# Deployment
 
-1. Verify and pin PHP/Laravel/frontend runtime versions.
-2. Build and test a minimal authenticated multi-school foundation on PostgreSQL.
-3. Select a supported Heroku generation and corresponding build method using current official documentation.
-4. Authenticate hosting access and obtain an explicit service budget.
-5. Provision isolated staging resources within the authorized budget.
-6. Configure secrets, stable encryption key, database TLS, storage and Redis.
-7. Build frontend assets; release migrations; start web/worker/scheduler.
-8. Verify health, authentication, private upload, persistence and actual background processing.
-9. Complete module acceptance tests and restore a backup into isolation.
-10. Deploy production with clean bootstrap; verify owner access.
-11. Configure real DNS targets and TLS for the supplied domain.
+The active target is **Render Free Docker + Neon Free PostgreSQL**. Follow [the current runbook](docs/RENDER_NEON.md) and `.env.demo.example`. `render.yaml` explicitly selects free; the connected Render creation tool also requires an explicit free plan. No payment method, paid worker, Redis, scheduler, disk or Render PostgreSQL is needed.
 
-No buildpack, release command or deployment is currently claimed to be tested.
+Docker startup runs secure profile validation, bounded direct-connection migration locking, forward migrations, optional idempotent owner bootstrap and Laravel cache compilation. Preserve APP_KEY through every deployment. Use pooled PostgreSQL for runtime and direct PostgreSQL for migration locking. Both require TLS.
 
-## Prepared Cedar deployment candidate
+The service can sleep and has free monthly quotas. /up is database-independent; /ready intentionally checks dependencies. Do not poll /ready or create keepalive traffic to defeat sleeping. The Blueprint selects /up; if created through a connector that cannot set healthCheckPath, Render's default port check remains database-independent and that configuration gap must be recorded.
 
-The current Procfile targets the classic PHP buildpack path. For a supported Cedar application, use official heroku/nodejs followed by heroku/php. The Node build invokes heroku-postbuild to type-check and compile assets. Do not apply this buildpack configuration blindly to a Fir app; confirm the account's available generation first.
+Only fictional records belong in this demo. Small PNG/JPEG logos are durable database records; general uploads, live messages and payments are disabled. Free hosting is not a production readiness claim.
 
-Set APP_ENV=production, APP_DEBUG=false, APP_URL to the exact HTTPS application host, SESSION_SECURE_COOKIE=true, REDIS_CLIENT=predis, Redis sessions/cache/queue, PostgreSQL DATABASE_URL with required TLS, and S3 storage credentials. Preserve APP_KEY across releases. Never put secrets into GitHub source files.
-
-The trusted-host allowlist currently accepts only the configured APP_URL hostname; changing to a custom domain requires updating APP_URL. Multi-domain tenant resolution is not implemented yet. No add-ons have been purchased and no deployed build has been verified.
+Heroku Procfile/buildpack hints are retained as a future migration option only. They are not the active deployment requirement or evidence of a deployed application. Future production requires reviewed operations, MFA/permissions, external durable files where enabled, backup restoration and capacity testing.

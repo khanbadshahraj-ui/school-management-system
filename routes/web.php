@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SchoolLogoController;
 use App\Http\Middleware\SchoolContext;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -16,7 +17,9 @@ Route::post('/logout', [AuthController::class, 'destroy'])->middleware('auth');
 Route::get('/ready', function () {
     try {
         DB::select('select 1');
-        Redis::ping();
+        if (config('session.driver') === 'redis' || config('cache.default') === 'redis' || config('queue.default') === 'redis') {
+            Redis::ping();
+        }
 
         return response()->json(['status' => 'ready']);
     } catch (Throwable) {
@@ -24,6 +27,8 @@ Route::get('/ready', function () {
     }
 })->middleware('throttle:30,1');
 Route::middleware(['auth', SchoolContext::class])->group(function () {
+    Route::get('/school/logo', [SchoolLogoController::class, 'show']);
+    Route::post('/school/logo', [SchoolLogoController::class, 'store'])->middleware('throttle:10,1');
     Route::get('/dashboard', [SchoolController::class, 'dashboard']);
     Route::get('/settings', [SchoolController::class, 'settings']);
     Route::patch('/settings', [SchoolController::class, 'update']);
