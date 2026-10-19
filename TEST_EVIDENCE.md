@@ -1,23 +1,17 @@
 # Test evidence
 
-| Check | Observed result |
-|---|---|
-| npm run build | TypeScript and Vite passed |
-| php artisan test --filter=TenantContextTest\|HealthTest | 4 passed, 5 assertions |
-| PHP syntax | 25 files, zero errors |
-| PostgreSQL CI suite | 10 tests passed, 19 assertions, GitHub Actions run 39304069672 |
-| Composer validate | Valid, synchronized lock |
-| Composer dependency audit during resolution | No known advisories reported |
-| npm audit --omit=dev | 0 vulnerabilities |
-| Route cache / Blade cache | Compiled |
-| HTTP /up | 200 |
-| HTTP /login | 200 |
-| HTTP /ready | 503, database unavailable |
-| Browser/physical device QA | Not performed |
-| Heroku/domain deployment | Not performed |
+## Current demo candidate
+Source commit: 6438fe787729d004c38172d44fb201005ff36b54.
+GitHub Actions: https://github.com/khanbadshahraj-ui/school-management-system/actions/runs/39315836562
 
-GitHub Actions verified migrations and the implemented enrollment/tenant-isolation contracts against PostgreSQL. These checks do not establish completeness of remaining modules, browser compatibility, or production readiness.
+- PostgreSQL 16 and 18 jobs pass: 22 tests, 50 assertions per job.
+- Coverage includes tenant scope/foreign-key enforcement, student enrollment/auditing, teacher denial, inactive accounts, logo upload/durable adapter/isolation/SVG rejection, repeatable owner bootstrap/conflict handling, secure demo configuration and dependency readiness without Redis.
+- TypeScript/Vite production build, Composer audit and npm production audit pass.
+- Local non-database tests pass: 8 tests, 9 assertions.
+- Production Docker image build/startup and replacement smoke check are still running; no success claim yet.
+- Neon school_demo owner connection verified against PostgreSQL 18.6 using the connector. No school data schema has yet been deployed there.
+- Actual Render URL, owner login, provider restart/session/logo persistence and sleep/wake checks are pending.
+- Browser/physical-device checks, backup restoration and load tests are not performed.
 
-Verified source commit: 4bf1f76ab496712cea6e314b731e06ee42a8dd8f.
-Run: https://github.com/khanbadshahraj-ui/school-management-system/actions/runs/39304069672
-
+## Historical foundation
+GitHub Actions run 39304069672 passed 10 tests / 19 assertions for the earlier foundation. Historical evidence is retained separately from current deployment claims. These checks do not establish completeness of the remaining school modules or real-data readiness.

@@ -1,18 +1,16 @@
 # Access checklist
 
-GitHub identity and repository read access have been verified. No new external permissions were granted.
+| Resource | Verified state |
+|---|---|
+| GitHub | Repository read/write and PR/CI access verified |
+| Render | My Workspace, tea-dbb7a6e7bikc73erhk6g, accessible; no previous services found; free service creation pending |
+| Neon | Free organization org-twilight-dew-36499694 verified; isolated branch br-purple-water-b71ljlvd and school_demo database created; database owner connection verified |
+| Neon account restriction | Vercel-managed organization blocks separate project creation and custom suspend intervals; supported branch/database creation succeeded |
+| Runtime secrets | Generated privately; not committed or displayed in logs; Render transfer pending |
+| Application owner | Bootstrap configuration prepared; creation and personal acceptance pending deployment |
+| Heroku | Superseded; no billing/provisioning pursued |
+| Redis/worker/scheduler/disk/object bucket | Not required or provisioned for this demo |
+| External email/payment providers | Disabled; no credentials needed for this stage |
+| Domain/DNS | Deferred; use free onrender.com address |
 
-| Resource | Status | Required before |
-|---|---|---|
-| Source repository | khanbadshahraj-ui/school-management-system selected; push access verified | Remote source persistence/CI |
-| Heroku account/app | Not authenticated | Staging deployment |
-| Hosting budget | Not authorized | Chargeable provisioning |
-| Managed PostgreSQL | Not provisioned | Deployed persistent data |
-| Redis | Not provisioned | Shared cache/queues |
-| Object storage | Not provisioned | Durable private files |
-| Email provider | Not configured | Invitations and outbound email |
-| Payment provider | Not configured | Live online payments |
-| Domain/DNS | Not supplied | Custom domain |
-| Application owner | Not created | Owner acceptance |
-
-Never paste passwords or recovery codes into chat. Use a supported login or secret-management flow. Do not request domain access until a deployed staging application is verified.
+Use supported account connections and protected environment settings. Never paste credentials or recovery codes into ordinary chat. Free resources remain subject to provider quotas and account restrictions; do not enable upgrades or payment methods.

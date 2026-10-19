@@ -1,27 +1,18 @@
 # Verified project checkpoint
 
 ## Current state
-Incomplete school-management foundation; not deployed and not ready for real school data.
+Incomplete school-management foundation converted to a restricted free-demo profile. Render deployment is not yet verified. No real school data should be used.
 
-## Implemented in source
-Laravel 13.37 / PHP 8.3, React 19 / TypeScript / Inertia, PostgreSQL schema, Redis adapter, S3 adapter dependency, login/logout, school context with fail-closed queries, school name/colors/regional settings, campuses, departments, student enrollment/list/search, dashboard counts, audited settings/enrollment, secure interactive owner bootstrap, deployment guard, CI and Procfile candidates.
+## Implemented
+Laravel 13.37 / PHP 8.3, React 19 / TypeScript / Inertia, PostgreSQL tenant schema, login/logout, branding/regional settings, campuses/departments, enrollment/list/search, dashboard counts and audits. New: durable bounded school logos, explicit demo/production profiles, database sessions/cache, synchronous demo jobs, idempotent protected owner bootstrap, Docker startup validation and advisory-locked direct-connection migrations, Render Free Blueprint and deployment runbook.
 
-## Checks completed
-- Frontend type checking and production build pass.
-- GitHub Actions run 39304069672: all 10 tests passed with 19 assertions against PostgreSQL 16 and Redis services. Covers tenant query isolation, composite foreign-key enforcement, successful enrollment/audit, teacher settings denial, disabled-account denial, guest redirect, login rendering and context lifecycle.
-- 25 PHP source/test/migration files pass syntax checks.
-- Composer manifest and lock validate; dependency installation reported no known advisories.
-- npm production dependency audit: zero reported vulnerabilities.
-- HTTP smoke checks with PHP and Redis in one execution: /up=200, /login=200, /ready=503 as expected without PostgreSQL.
-- Route and Blade cache compilation pass.
+## Verified
+PostgreSQL 16 and 18 CI: 22 tests / 50 assertions each, frontend build and dependency audits passed on 6438fe787729d004c38172d44fb201005ff36b54. Container build/smoke still running. See TEST_EVIDENCE.md for exact run.
 
-## Blockers
-Local PostgreSQL startup requires user switching, which this execution environment prohibits. Local database integration remains unavailable, but external GitHub Actions has now applied migrations and verified the implemented persistence and isolation workflows. Docker is unavailable locally. No accessible remote PostgreSQL service or Heroku authentication has been supplied.
+GitHub and Render workspace access are verified. Neon organization is free; Vercel-managed project creation restrictions were handled using an isolated new school-management-demo branch and school_demo database. New branch only: br-purple-water-b71ljlvd, endpoint ep-royal-butterfly-b7ohev2s, max 0.25 CU, transaction pooler enabled. Existing primary branch remains untouched. Owner database connection verified on PostgreSQL 18.6.
 
-GitHub access and the dedicated repository khanbadshahraj-ui/school-management-system are verified. The initial README commit is preserved. Foundation uploaded on build/school-foundation and verified in GitHub Actions. See pull request #1 and TEST_EVIDENCE.md.
+## Next executable action
+Finish Docker CI including startup, owner login and replacement persistence. Provision one Render service explicitly on free using protected settings; verify the returned HTTPS URL, app/database persistence and ownership. Record real observations here. Never create duplicate services or paid resources.
 
-## Not complete
-Most business modules, MFA, full permissions editor, monogram uploads, full Urdu translation, private file workflows, actual jobs, browser QA, backup restoration, performance checks and deployment. See README and original project brief.
-
-## Next action
-Establish authorized Heroku staging access and verify the deployed foundation; then expand the remaining modules. Heroku authentication and a budget are needed before chargeable staging provisioning.
+## Remaining scope
+MFA, full permission configuration, guardians, academic structure, timetable, attendance, assignments, exams, finance/payroll, library, transport, hostel/welfare, inventory/procurement, reports and integrations remain unfinished. Browser/device acceptance, backup restoration, capacity testing and owner acceptance remain pending. Free demo disables bulk files, outbound messages, live payments, workers and schedules. Heroku is no longer the immediate target.

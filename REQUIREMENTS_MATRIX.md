@@ -2,9 +2,9 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Authentication and privileged MFA | Login/logout implemented; MFA pending | Login renders; database login verification pending |
+| Authentication and privileged MFA | Login/logout implemented; MFA pending | Application tests pass; actual container login pending |
 | Tenant isolation and role permissions | Initial roles, queries and constraints verified; full permissions editor pending | PostgreSQL isolation and cross-school constraint tests pass in GitHub Actions |
-| School branding and academic configuration | Name/colors/region and campus/department foundation; remainder pending | Build passes; teacher settings denial verified; complete configuration coverage pending |
+| School branding and academic configuration | Name/colors/region, persistent PNG/JPEG logo and campus/department foundation; remainder pending | Build, logo persistence/isolation, SVG rejection and teacher denial verified in PostgreSQL CI |
 | Admissions and enrollment | Not implemented | None |
 | Student and guardian records | Initial student enrollment/list/search; guardian relationships pending | Enrollment and audit persistence verified in PostgreSQL CI |
 | Timetables and conflict detection | Not implemented | None |
@@ -19,7 +19,7 @@
 | Procurement inventory and assets | Not implemented | None |
 | Communication providers and portals | Not implemented | None |
 | Reports and exports | Not implemented | None |
-| Security and accessibility | Not implemented | None |
+| Security and accessibility | CSRF, throttling, secure deployment guards and initial roles implemented; MFA/accessibility acceptance pending | PostgreSQL and guard tests pass |
 | Backup restoration and performance | Not implemented | None |
-| Heroku staging and production | Not implemented | None |
+| Render Free and Neon Free demo | Docker/configuration implemented; actual hosting verification pending | Neon free branch/database provisioned; image CI pending |
 | Custom domain and owner handover | Not implemented | None |
