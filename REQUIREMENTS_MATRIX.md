@@ -2,7 +2,7 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Authentication and privileged MFA | Login/logout implemented; MFA pending | Application tests pass; actual container login pending |
+| Authentication and privileged MFA | Login/logout implemented; MFA pending | Application tests and production-container login/logout pass; privileged MFA remains pending |
 | Tenant isolation and role permissions | Initial roles, queries and constraints verified; full permissions editor pending | PostgreSQL isolation and cross-school constraint tests pass in GitHub Actions |
 | School branding and academic configuration | Name/colors/region, persistent PNG/JPEG logo and campus/department foundation; remainder pending | Build, logo persistence/isolation, SVG rejection and teacher denial verified in PostgreSQL CI |
 | Admissions and enrollment | Not implemented | None |
@@ -21,5 +21,5 @@
 | Reports and exports | Not implemented | None |
 | Security and accessibility | CSRF, throttling, secure deployment guards and initial roles implemented; MFA/accessibility acceptance pending | PostgreSQL and guard tests pass |
 | Backup restoration and performance | Not implemented | None |
-| Render Free and Neon Free demo | Docker/configuration implemented; actual hosting verification pending | Neon free branch/database provisioned; image CI pending |
+| Render Free and Neon Free demo | Docker/configuration and replacement tests pass; Render account blocks creation | Neon Free branch/database provisioned; Docker CI passes; Render create returned HTTP 402 |
 | Custom domain and owner handover | Not implemented | None |

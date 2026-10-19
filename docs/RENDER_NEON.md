@@ -38,3 +38,7 @@ To move later: build the same Dockerfile on the new host, configure HTTPS/proxie
 ## Acceptance
 
 The owner must personally confirm sign-in and school-admin permissions. Verify branding, campus creation, enrollment, persistence after replacement, logo isolation, teacher denial, secure cookies and logout. Record observed URLs, commit, test runs, provider plans and remaining limitations in PROJECT_STATUS.md. Physical iPhone/Android/macOS/Windows testing and real-data readiness must not be claimed from CI alone.
+
+## Observed account blocker
+
+The tested Docker candidate passed CI run 39316324172. An explicit Render Free Docker creation request on 2026-10-19 UTC returned HTTP 402 requiring payment information. No Render service was created. Dashboard creation without a card is not yet verified for this account. Do not add a card, select a paid plan or describe the app as deployed. The prepared source and free Neon branch/database remain available for continuation.
