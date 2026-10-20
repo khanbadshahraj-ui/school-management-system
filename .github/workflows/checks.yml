@@ -81,3 +81,29 @@ jobs:
       - name: Startup diagnostics
         if: failure()
         run: docker logs school-app
+
+      - name: Parse Windows launcher
+        shell: pwsh
+        run: |
+          $parseErrors = $null
+          $tokens = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("$PWD/Start-Local.ps1", [ref]$tokens, [ref]$parseErrors) | Out-Null
+          if ($parseErrors.Count) { $parseErrors | Format-List; exit 1 }
+      - name: Verify local Compose login and persistent sessions and logos
+        env:
+          SCHOOL_DEMO_IMAGE: school-demo:ci
+          SCHOOL_DEMO_PORT: '10000'
+        run: |
+          docker rm -f school-app
+          python3 - <<'PYCI'
+          import base64
+          from pathlib import Path
+          Path('.env.local.demo').write_text('APP_KEY=base64:'+base64.b64encode(b'c'*32).decode()+'\nLOCAL_DB_PASSWORD=ci-only-local-password\nDEMO_INITIAL_PASSWORD=CI-only-owner-password\n')
+          PYCI
+          docker compose -p school-local-ci --env-file .env.local.demo -f compose.local.yaml up -d --no-build --wait --wait-timeout 180
+          python3 tests/container_smoke.py initial
+          docker compose -p school-local-ci --env-file .env.local.demo -f compose.local.yaml up -d --no-build --force-recreate --no-deps --wait --wait-timeout 180 app
+          python3 tests/container_smoke.py replacement
+      - name: Local diagnostics
+        if: failure()
+        run: docker compose -p school-local-ci --env-file .env.local.demo -f compose.local.yaml logs --tail=60

@@ -1,0 +1,62 @@
+name: school-management-local
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: school_local
+      POSTGRES_USER: school
+      POSTGRES_PASSWORD: ${LOCAL_DB_PASSWORD:?Use Run-Local.cmd first}
+    volumes:
+      - school-data:/var/lib/postgresql
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U school -d school_local"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  app:
+    image: ${SCHOOL_DEMO_IMAGE:-school-management-local:latest}
+    build: .
+    entrypoint: [sh, /var/www/html/docker/local-entrypoint.sh]
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${SCHOOL_DEMO_PORT:-8000}:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "false"
+      APP_NAME: School Management Demo
+      APP_URL: http://localhost:${SCHOOL_DEMO_PORT:-8000}
+      APP_KEY: ${APP_KEY:?Use Run-Local.cmd first}
+      DEPLOYMENT_PROFILE: demo
+      DEMO_MODE: "true"
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_DATABASE: school_local
+      DB_USERNAME: school
+      DB_PASSWORD: ${LOCAL_DB_PASSWORD:?Use Run-Local.cmd first}
+      DB_SSLMODE: disable
+      SESSION_DRIVER: database
+      SESSION_SECURE_COOKIE: "false"
+      SESSION_ENCRYPT: "true"
+      CACHE_STORE: database
+      QUEUE_CONNECTION: sync
+      FILESYSTEM_DISK: local
+      MAIL_MAILER: array
+      LOG_CHANNEL: stderr
+      BULK_UPLOADS_ENABLED: "false"
+      EXTERNAL_MESSAGES_ENABLED: "false"
+      LIVE_PAYMENTS_ENABLED: "false"
+      DEMO_BOOTSTRAP_ENABLED: "true"
+      DEMO_OWNER_EMAIL: owner@example.test
+      DEMO_INITIAL_PASSWORD: ${DEMO_INITIAL_PASSWORD:?Use Run-Local.cmd first}
+      DEMO_SEED: "true"
+    healthcheck:
+      test: [CMD, php, -r, "exit(@file_get_contents('http://127.0.0.1:8000/up') === false ? 1 : 0);"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 15s
+volumes:
+  school-data:

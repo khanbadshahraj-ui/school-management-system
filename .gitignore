@@ -29,3 +29,5 @@ Thumbs.db
 !.env.demo.example
 
 __pycache__/
+
+.env.local.demo
