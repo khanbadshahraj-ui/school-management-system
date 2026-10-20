@@ -12,6 +12,12 @@ The demo uses PostgreSQL sessions/cache, synchronous lightweight jobs, and small
 
 Sign-in/logout, tenant isolation, school name/color/regional settings, school logo, campuses, departments, student enrollment/list/search and dashboard counts. Sensitive settings/enrollment/logo changes are audited. Demo owner bootstrap is repeatable and preserves existing passwords and records.
 
+## Windows local demo
+
+Install and start Docker Desktop using its Linux-container engine once. Download/extract this repository and double-click **Run-Local.cmd**. It builds PHP/frontend dependencies inside Docker, starts PostgreSQL, seeds fictional records, shows a unique generated owner password and opens http://localhost:8000. No PHP, Node, PostgreSQL installation, Neon credentials or payment method is needed on Windows. Initial image downloads/builds need internet and can take several minutes.
+
+Keep the generated `.env.local.demo` private and preserve it with the Docker data volume; it contains the stable encryption key, database password and initial sign-in password. Losing it can break access to existing data. **Stop-Local.cmd** stops containers without deleting records. This local-only configuration binds the web port to loopback and never publishes a database port. It does not change the stricter Render production startup. Docker Desktop/WSL compatibility and physical Windows execution must be checked on your laptop; CI can test Compose and PowerShell syntax but cannot launch software on your computer.
+
 ## Local development
 
 1. Install PHP 8.3 with PDO PostgreSQL, Composer and Node 24; provide a dedicated local PostgreSQL database.
