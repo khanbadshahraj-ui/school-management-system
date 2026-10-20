@@ -14,3 +14,5 @@
 | Domain/DNS | Deferred; use free onrender.com address |
 
 Use supported account connections and protected environment settings. Never paste credentials or recovery codes into ordinary chat. Free resources remain subject to provider quotas and account restrictions; do not enable upgrades or payment methods.
+
+Local demo: Windows launcher and Compose startup verified in CI; Docker Desktop/WSL availability on the owner's computer is unknown. User must start Docker Desktop and Run-Local.cmd on that computer. No cloud credentials are required for this local path.

@@ -22,3 +22,11 @@ The tested changes are merged via PR #2; merge commit 6aa914c4f0a7f90b5bad7ac26b
 
 ## Remaining scope
 MFA, full permission configuration, guardians, academic structure, timetable, attendance, assignments, exams, finance/payroll, library, transport, hostel/welfare, inventory/procurement, reports and integrations remain unfinished. Browser/device acceptance, backup restoration, capacity testing and owner acceptance remain pending. Free demo disables bulk files, outbound messages, live payments, workers and schedules. Heroku is no longer the immediate target.
+
+## Windows local startup checkpoint — 2026-10-20
+
+PR #3 adds Run-Local.cmd, Stop-Local.cmd, Start-Local.ps1, compose.local.yaml and a local-only Docker entrypoint. The actual Laravel/React app uses PostgreSQL 18 in a persistent Docker volume, without Neon, Redis or hosting/payment requirements. The app publishes only a 127.0.0.1 web port; PostgreSQL is not published. The launcher generates private stable settings once, shows the owner password and opens http://localhost:8000. Keep .env.local.demo and the data volume.
+
+Actions run 39414185570 passed all jobs: PostgreSQL 16/18 tests, frontend/audits, production image checks, PowerShell syntax and local Compose startup/login/branding/logo/session checks before and after app-container replacement. Verified source 20419b449691b3fcd81d3ab215d7b3864cad0a77; merged as a24f4169c64d0c947a8adb7a787171bcbe6b1e57. Actual Windows execution has not been observed.
+
+The Work runtime reset and no longer includes PHP/PostgreSQL/Docker. Installing packages is blocked by environment permission errors, and earlier direct Neon DNS access was blocked. No app is currently running in this Work environment or on the owner's laptop. Next action: owner starts Docker Desktop with Linux containers, downloads/extracts the current main branch and double-clicks Run-Local.cmd; verify the browser and owner sign-in with them. Do not call a server-side localhost address accessible on the owner's laptop.

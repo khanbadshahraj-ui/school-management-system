@@ -18,3 +18,15 @@ GitHub Actions: https://github.com/khanbadshahraj-ui/school-management-system/ac
 
 ## Historical foundation
 GitHub Actions run 39304069672 passed 10 tests / 19 assertions for the earlier foundation. Historical evidence is retained separately from current deployment claims. These checks do not establish completeness of the remaining school modules or real-data readiness.
+
+## Local Windows launcher path
+
+Actions run: https://github.com/khanbadshahraj-ui/school-management-system/actions/runs/39414185570
+Source: 20419b449691b3fcd81d3ab215d7b3864cad0a77.
+
+- PowerShell launcher syntax parsed successfully.
+- PostgreSQL 16 and 18 application tests, build and audits passed.
+- Local Compose started healthy PostgreSQL 18 and the actual Laravel image.
+- HTTP login, owner role, assets, branding and logo upload/read passed.
+- Local app-container replacement preserved the active session, branding and logo; logout passed.
+- Physical Windows laptop, Docker Desktop/WSL configuration and browser startup require owner verification. The app is not running on the owner's laptop merely because CI passes.
